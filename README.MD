@@ -13,17 +13,39 @@ From the <module> sample.py (line 35),
 to the main method in sample.py (line 29), 
 to the run_anonymizer method in the sample.py (line 13)
 to the anonymize method in AnonymizerEngine Class (line 104)
-[complete the call stack here]
+[operators_factory.py, line 133
+operator = operators_by_type.get(operator_name)
+
+anonymizer_engine.py, inside
+AnonymizerEngine.anonymize(...)
+
+engine_base.py, inside
+_apply_operator(...)
+
+sample.py, inside
+run_anonymizer("initial")
+
+sample.py, line 29
+inside the main() function
+
+sample.py, line 35
+program entry point (if __name__ == "__main__":)]
 ```
 
 * How many if/elif branches are used in selecting the operator?
-*Put your answer here*
+*0 if/elif branches are used in selecting the operator*
 
 * What data structure (a Python data type) exactly is used to select the operator?
-*Put your answer here*
+*{
+    "redact": Redact,
+    "replace": Replace,
+    "initial": Initial,
+    ...
+}*
 
 * Explain how "Strategy" design pattern is reflected here.
 
+*The Strategy pattern is used because each anonymization method (Redact, Replace, Initial, Hash, etc.) is implemented as a separate class that shares the same interface (operate). The anonymizer engine doesn’t hard-code which method to use; instead, it selects the correct strategy at runtime from a dictionary and executes it. This allows different algorithms to be swapped in easily without changing the engine’s logic.*
 
 ---
 

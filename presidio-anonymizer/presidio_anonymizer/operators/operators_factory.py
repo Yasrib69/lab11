@@ -16,12 +16,13 @@ from presidio_anonymizer.operators import (
     OperatorType,
     Redact,
     Replace,
+    Initial,
 )
 
 logger = logging.getLogger("presidio-anonymizer")
 
 # Predefined operators
-ANONYMIZERS = [Custom, Encrypt, Hash, Keep, Mask, Redact, Replace]
+ANONYMIZERS = [Custom, Encrypt, Hash, Keep, Mask, Redact, Replace, Initial]
 if AHDS_AVAILABLE and AHDSSurrogate:
     ANONYMIZERS.append(AHDSSurrogate)
 
@@ -31,9 +32,7 @@ DEANONYMIZERS = [Decrypt, DeanonymizeKeep]
 class OperatorsFactory:
     """Operators factory to get the correct operator class."""
 
-    def __init__(
-        self,
-    ):
+    def __init__(self):
         self._anonymizers = self.__load_predefined(OperatorType.Anonymize)
         self._deanonymizers = self.__load_predefined(OperatorType.Deanonymize)
 
