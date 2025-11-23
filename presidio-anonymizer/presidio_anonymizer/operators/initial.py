@@ -19,7 +19,7 @@ class Initial(Operator):
         if text is None:
             return text
 
-        # Split the text on whitespace into words (this removes extra spaces)
+        # Split the text on whitespace into words (collapses extra spaces)
         words = text.split()
         initials_words = []
 
@@ -34,22 +34,20 @@ class Initial(Operator):
                     first_alnum_idx = i
                     break
 
-            # If there is no alphanumeric character, keep the word as-is
+            # If no alphanumeric character exists, return whole word unchanged
             if first_alnum_idx is None:
                 initials_words.append(word)
                 continue
 
-            # Everything before the first alnum is prefix (e.g., "@", "-*-")
-            prefix = word[:first_alnum_idx]
-            first_char = word[first_alnum_idx].upper()
+            prefix = word[:first_alnum_idx]              # non-alnum prefix (e.g. "@", "-*-")
+            first_char = word[first_alnum_idx].upper()   # the initial
 
             initials_words.append(f"{prefix}{first_char}.")
 
-        # Join initials with a single space
+        # Join initials with single spaces
         return " ".join(initials_words)
 
     def validate(self, params: Dict = None) -> None:
-        # No special parameters needed for this operator
         return
 
     def operator_name(self) -> str:
