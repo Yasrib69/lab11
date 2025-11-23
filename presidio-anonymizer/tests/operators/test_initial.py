@@ -13,6 +13,7 @@ def test_correct_name():
     "input_text, expected",
     [
         ("John Smith", "J. S."),
+        ("  Eastern   Michigan   University  ", "E. M. U."),
     ],
 )
 def test_initials_basic(input_text, expected):
